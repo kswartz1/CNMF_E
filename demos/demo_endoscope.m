@@ -1,18 +1,18 @@
 %% clear workspace
-clear; clc; close all;  
+%clear; clc; close all;  
 global  d1 d2 numFrame ssub tsub sframe num2read Fs neuron neuron_ds ...
     neuron_full Ybg_weights; %#ok<NUSED> % global variables, don't change them manually
 
 %% select data and map it to the RAM
-nam = './data_1p.tif';
-cnmfe_choose_data;
-
+%nam = './tseries_singing2023_03_06_R_All_Trials_Concat.mat';
+%cnmfe_choose_data;
+%load('tseries_singing2023_03_06_R_All_Trials_Concat.mat')
 %% create Source2D class object for storing results and parameters
-Fs = 10;             % frame rate
-ssub = 1;           % spatial downsampling factor
-tsub = 1;           % temporal downsampling factor
-gSig = 3;           % width of the gaussian kernel, which can approximates the average neuron shape
-gSiz = 13;          % maximum diameter of neurons in the image plane. larger values are preferred.
+Fs = 33;             % frame rate
+ssub = 2;           % spatial downsampling factor
+tsub = 2;           % temporal downsampling factor
+gSig = 5;           % width of the gaussian kernel, which can approximates the average neuron shape
+gSiz = 20;          % maximum diameter of neurons in the image plane. larger values are preferred.
 neuron_full = Sources2D('d1',d1,'d2',d2, ... % dimensions of datasets
     'ssub', ssub, 'tsub', tsub, ...  % downsampleing
     'gSig', gSig,...    % sigma of the 2D gaussian that approximates cell bodies
@@ -47,7 +47,7 @@ sframe=1;						% user input: first frame to read (optional, default:1)
 num2read= numFrame;             % user input: how many frames to read   (optional, default: until the end)
 
 tic;
-cnmfe_load_data;
+%cnmfe_load_data;
 fprintf('Time cost in downsapling data:     %.2f seconds\n', toc);
 
 Y = neuron.reshape(Y, 1);       % convert a 3D video into a 2D matrix
